@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Analyzer</title>
+  <link rel="shortcut icon" href="images/learn.jpg"image/x-icon">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📄 Resume Analyzer</h1>
+      <p>Match your resume to any job description. Find out what you're missing, and get hired faster!</p>
+    </header>
+
+    <main>
+      <div class="input-box">
+        <label for="resumeUpload">Upload Your Resume (.txt or .pdf)</label>
+        <input type="file" id="resumeUpload" accept=".txt,.pdf" />
+      </div>
+
+      <div class="input-box">
+        <label for="jobDesc">Paste Job Description</label>
+        <textarea id="jobDesc" rows="8" placeholder="Paste the job description here..."></textarea>
+      </div>
+
+      <button class="analyze-btn">🔍 Analyze Resume</button>
+
+      <div class="output-placeholder">
+        <p>Analysis results will appear here...</p>
+      </div>
+    </main>
+
+    <footer>
+      <p>Built by LintEdge @2025</p>
+    </footer>
+  </div>
+</body>
+</html>
