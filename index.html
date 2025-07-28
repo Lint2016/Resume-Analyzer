@@ -6,6 +6,9 @@
   <title>Resume Analyzer</title>
   <link rel="shortcut icon" href="images/learn.jpg"image/x-icon">
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,18 +20,18 @@
 
     <main>
       <div class="input-box">
-        <label for="resumeUpload">Upload Your Resume (.txt or .pdf)</label>
-        <input type="file" id="resumeUpload" accept=".txt,.pdf" />
+        <label for="resumeUpload">Upload Your Resume (.txt,.pdf,.doc,.docx)</label>
+        <input type="file" id="resumeUpload" accept=".txt,.pdf,.doc,.docx" />
       </div>
 
       <div class="input-box">
         <label for="jobDesc">Paste Job Description</label>
-        <textarea id="jobDesc" rows="8" placeholder="Paste the job description here..."></textarea>
+        <textarea id="jobDescription" rows="8" placeholder="Paste the job description here..."></textarea>
       </div>
 
-      <button class="analyze-btn">🔍 Analyze Resume</button>
-
-      <div class="output-placeholder">
+      <button class="analyze-btn" id="analyzeBtn">🔍 Analyze Resume</button>
+      <button class="analyze-btn" id="restart">Restart</button>
+      <div class="output-placeholder" id="results">
         <p>Analysis results will appear here...</p>
       </div>
     </main>
@@ -37,5 +40,6 @@
       <p>Built by LintEdge @2025</p>
     </footer>
   </div>
+  <script src="index.js"></script>
 </body>
 </html>
