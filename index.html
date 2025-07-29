@@ -7,6 +7,12 @@
   <link rel="shortcut icon" href="images/learn.jpg"image/x-icon">
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <!--the link below will allow pdf files to be read as well-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,7 +27,7 @@
     <main>
       <div class="input-box">
         <label for="resumeUpload">Upload Your Resume (.txt,.pdf,.doc,.docx)</label>
-        <input type="file" id="resumeUpload" accept=".txt,.pdf,.doc,.docx" />
+        <input type="file" id="resumeUpload" accept=".txt,.pdf,.doc,.docx,image/*,application/pdf" />
       </div>
 
       <div class="input-box">
