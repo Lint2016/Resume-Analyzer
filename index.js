@@ -39,7 +39,6 @@ document.getElementById('analyzeBtn').addEventListener('click', () => {
     const reader = new FileReader();
     reader.onload = function (event) {
     const skillSet = event.target.result; // The file content
-    console.log("Resume text:", skillSet);
     compareTexts(skillSet, jobDescription); // Pass job description
   };
   reader.readAsText(file); // Read uploaded file as text
@@ -47,22 +46,21 @@ document.getElementById('analyzeBtn').addEventListener('click', () => {
   //read pdf file
   function readPDF(file, jobDescription){
     const reader=new FileReader();
-    reader.onload = function(){
+    reader.onload = ()=>{
      const pdfData = new Uint8Array(reader.result)
-     pdfjsLib.getDocument(pdfData).promise.then(function(pdf){
-      let allText= '';
-      const readAllPages = async()=>{
-        for(let i=1; i<= pdf.numPages;i++){
-            const page=await pdf.getPage(i);
-            const content =await page.getTextContent();
-            const strings =content.items.map(items=>items.str);
-            allText+=strings.join('')+'';
-        }
-        compareTexts(allText,jobDescription)
+     pdfjsLib.getDocument(pdfData).promise.then(async pdf=>{
+      let text= '';
+      
+         for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        const pageText = content.items.map(item => item.str).join(' ');
+        text += pageText + ' ';
       }
-      readAllPages()
+        compareTexts(text,jobDescription)
+        
      })
-    }
+    };
     reader.readAsArrayBuffer(file);//this is required for pdf
   }
 
@@ -80,16 +78,27 @@ document.getElementById('analyzeBtn').addEventListener('click', () => {
 //Divide the number of matched words by total job-related words , divide by 100 to get %
     const matchPercent = Math.round((matchedWords.length / jobWords.length) * 100);
 
-    Swal.fire({
-      title: `Match Score: ${matchPercent}%`,
-      html: `
-        <p><strong>${matchedWords.length}</strong> out of <strong>${jobWords.length}</strong> job-related words found in your resume.</p>
+   //we display the result dynamically to the front page of the app
+   //we first create new element to add to contain the results
+     const newDiv=document.createElement('div');
+     const newParagraph = document.createElement('P');
+     const newHeading = document.createElement('h1');
+     const newIcon= document.createElement('icon')
+     //then we set change the new element content with dynamic obtain results
+     newHeading.textContent=`Match Score: ${matchPercent}%`
+     newParagraph.textContent=` 
+     ${matchedWords.length} out of ${jobWords.length} job-related words found in your resume.
         ${matchPercent >= 60 
           ? '✅ You are a good match!' 
-          : '🛠️ Consider updating your resume with missing keywords.'}
-      `,
-      icon: matchPercent >= 60 ? 'success' : 'warning',
-    });
+          : '🛠️ Consider updating your resume with missing keywords.'},`
+     newIcon.innerHTML=`${matchPercent >= 60 
+     ? '<img src="images/pass.jpg" alt="Success Icon" width="40">' 
+     : '<img src="images/redicon.jpg" alt="Warning Icon" width="40">'}`
+          
+     newDiv.appendChild(newHeading);
+     newDiv.appendChild(newParagraph);
+     newDiv.appendChild(newIcon);
+     document.getElementById('results').appendChild(newDiv);//we now add the result to the app
   }
 });
 
@@ -98,4 +107,5 @@ document.getElementById('restart').addEventListener('click', ()=>{
   console.log('restart button is clicked')
   document.getElementById('jobDescription').value=''
   document.getElementById('resumeUpload').value=''
+  document.getElementById('results').textContent=''
 })
